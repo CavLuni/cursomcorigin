@@ -2,22 +2,42 @@ package com.cavluni.cursomc.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+
+
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
+	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String email;
+	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
+	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
 	private String numero;
+	
 	private String complemento;
+	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
 	private String bairro;
+	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
 	private String cep;
 	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
 	private Integer cidadeId;
 	
+	@javax.validation.constraints.NotEmpty(message="Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
