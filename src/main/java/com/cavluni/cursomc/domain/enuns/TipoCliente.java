@@ -8,7 +8,7 @@ public enum TipoCliente {
 	private int cod;
 	private String descricao;
 	
-	private TipoCliente(int cod, String descricao) {
+	TipoCliente(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
