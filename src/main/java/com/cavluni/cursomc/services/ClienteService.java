@@ -16,13 +16,15 @@ import org.springframework.stereotype.Service;
 import com.cavluni.cursomc.domain.Cidade;
 import com.cavluni.cursomc.domain.Cliente;
 import com.cavluni.cursomc.domain.Endereco;
+import com.cavluni.cursomc.domain.enuns.Perfil;
 import com.cavluni.cursomc.domain.enuns.TipoCliente;
 import com.cavluni.cursomc.dto.ClienteDTO;
 import com.cavluni.cursomc.dto.ClienteNewDTO;
 import com.cavluni.cursomc.repositories.ClienteRepository;
 import com.cavluni.cursomc.repositories.EnderecoRepository;
+import com.cavluni.cursomc.security.UserSS;
+import com.cavluni.cursomc.services.exceptions.AuthorizationException;
 import com.cavluni.cursomc.services.exceptions.DataIntegretyException;
-import com.cavluni.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService {
@@ -37,9 +39,14 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+			
 		Optional<Cliente> obj = repo.findById(id);  
-		return obj.orElseThrow(() -> new ObjectNotFoundException(    
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName())); 
+		return obj.orElseThrow(); 
 	}
 	
 	@Transactional
